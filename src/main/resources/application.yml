@@ -23,8 +23,7 @@ spring:
 springdoc:
   api-docs:
     path: /v3/api-docs
+    enabled: true
   swagger-ui:
+    enabled: true
     path: /swagger-ui.html
-  resources:
-    docs:
-      path: /v3/api-docs
