@@ -38,7 +38,7 @@ public class JwtServiceImpl implements AuthenticationService {
 
     public void validateCredential(final String receivedPassword,
                                    final String storedPasswordHash) {
-        if (Constants.encoder.matches(receivedPassword, storedPasswordHash)) {
+        if (!Constants.encoder.matches(receivedPassword, storedPasswordHash)) {
             throw new BadCredentialsException("Authentication failed: The username or password you entered is incorrect. Please double-check your credentials and try again.");
         }
     }

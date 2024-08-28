@@ -1,0 +1,2 @@
+id,password,username,customerId,role
+admin,$2a$10$bZCzh2Qtk1PJKvUwn10ZNel1ajXtrhAxmVmbRyqRk5l93cA8B5YwS,admin,admin,ADMIN

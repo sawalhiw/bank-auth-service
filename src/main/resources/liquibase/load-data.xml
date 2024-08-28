@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet id="insert-admin-user(default user)" author="Waleed Sawalhi">
+        <loadUpdateData tableName="customer_credentials" primaryKey="id" file="classpath:/liquibase/default-user.csv">
+            <column header="id" name="id" type="INT"/>
+            <column header="password" name="password_hash" type="VARCHAR(244)"/>
+            <column header="username" name="username" type="VARCHAR(30)"/>
+            <column header="customerId" name="customer_id" type="VARCHAR(30)"/>
+            <column header="role" name="role" type="VARCHAR(30)"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>
