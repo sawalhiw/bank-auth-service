@@ -7,7 +7,6 @@ import lombok.*;
 @Data
 @Builder
 public class ErrorResponseDto {
-    private String stacktrace;
     private String message;
     private Integer statusCode;
 }

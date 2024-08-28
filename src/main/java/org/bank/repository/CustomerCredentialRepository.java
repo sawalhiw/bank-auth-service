@@ -13,6 +13,10 @@ public interface CustomerCredentialRepository extends BaseRepository<CustomerCre
 
     Optional<CustomerCredential> findCustomerCredentialByCustomerId(final String customerId);
 
+    Boolean existsCustomerCredentialByCustomerId(final String customerId);
+
+    Boolean existsCustomerCredentialByUsername(final String customerId);
+
     @Modifying
     @Transactional
     void deleteCustomerCredentialByCustomerId(String customerId);
