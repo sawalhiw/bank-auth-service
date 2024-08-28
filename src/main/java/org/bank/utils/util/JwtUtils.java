@@ -22,6 +22,7 @@ public class JwtUtils {
                         .claim("phoneNumber", customer.getPhoneNumber())
                         .claim("email", customer.getEmail())
                         .claim("username", customer.getUsername())
+                        .claim("role", customer.getRole())
                         .setIssuedAt(new Date())
                         .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                         .signWith(SignatureAlgorithm.HS512, SECRET_KEY)

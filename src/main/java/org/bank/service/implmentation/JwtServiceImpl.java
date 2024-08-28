@@ -33,6 +33,7 @@ public class JwtServiceImpl implements AuthenticationService {
         storedCredential.setUsername(jwtRequestDto.getUsername());
         final CustomerDto customerDetails = client.getCustomer(storedCredential.getCustomerId());
         customerDetails.setUsername(jwtRequestDto.getUsername());
+        customerDetails.setRole(storedCredential.getRole());
         return JwtUtils.generateToken(customerDetails);
     }
 
