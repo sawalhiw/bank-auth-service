@@ -45,7 +45,6 @@ public class CustomerCredentialServiceImpl extends BaseServiceImpl<CustomerCrede
     @Override
     public CustomerCredentialDto create(final CustomerCredentialDto dto) {
         validateCustomerExistence(dto.getCustomerId());
-        dto.setPassword(encoder.encode(dto.getPassword()));
         return super.create(dto);
     }
 

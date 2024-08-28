@@ -47,9 +47,9 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, DTO extends Bas
     public DTO create(final DTO dto) {
         validate(dto);
         ENTITY entity = mapper.toEntity(dto);
-        repository.save(entity);
+        DTO result = mapper.toDto(repository.save(entity));
         logger.info("Created {} with ID: {}", featureInfo().getSingle(), dto.getId());
-        return dto;
+        return result;
     }
 
     public DTO updateById(final DTO dto, final String id) {
@@ -58,9 +58,9 @@ public abstract class BaseServiceImpl<ENTITY extends BaseEntity, DTO extends Bas
 
         dto.setId(id);
         ENTITY entity = mapper.toEntity(dto);
-        repository.save(entity);
+        DTO result = mapper.toDto(repository.save(entity));
         logger.info("Updated {} with ID: {}", featureInfo().getSingle(), id);
-        return dto;
+        return result;
     }
 
     public DTO deleteById(final String id) {
