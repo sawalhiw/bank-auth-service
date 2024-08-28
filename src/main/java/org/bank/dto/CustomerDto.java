@@ -25,4 +25,6 @@ public class CustomerDto extends BaseDto {
     private Date dateOfBirth;
     @JsonIgnore
     private String username;
+    @JsonIgnore
+    private Role role;
 }
