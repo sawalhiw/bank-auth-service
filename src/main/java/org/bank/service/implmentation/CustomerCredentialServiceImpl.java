@@ -4,7 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bank.dto.CustomerCredentialDto;
 import org.bank.dto.CustomerDto;
+import org.bank.dto.FeatureInfoDto;
 import org.bank.entity.CustomerCredential;
+import org.bank.exception.DuplicateValueException;
 import org.bank.exception.NotFoundException;
 import org.bank.feign.BankCustomerClient;
 import org.bank.mapper.CustomerCredentialMapper;
@@ -29,6 +31,15 @@ public class CustomerCredentialServiceImpl extends BaseServiceImpl<CustomerCrede
         super(repository, mapper);
         this.repository = repository;
         this.customerClient = customerClient;
+    }
+
+    @Override
+    protected FeatureInfoDto featureInfo() {
+        return FeatureInfoDto
+                .builder()
+                .single("Customer Credential")
+                .plural("Customer Credentials")
+                .build();
     }
 
     @Override
@@ -63,6 +74,17 @@ public class CustomerCredentialServiceImpl extends BaseServiceImpl<CustomerCrede
         if (Objects.isNull(customerDto)) {
             throw new NotFoundException(String
                     .format("No user found with the customerId: %s. Please ensure the customerId is correct.", customerId));
+        }
+    }
+
+    @Override
+    protected void validate(CustomerCredentialDto dto) {
+        if (repository.existsCustomerCredentialByCustomerId(dto.getCustomerId())) {
+            throw new DuplicateValueException("CustomerId already exists.");
+        }
+
+        if (repository.existsCustomerCredentialByUsername(dto.getUsername())) {
+            throw new DuplicateValueException("Username already exists.");
         }
     }
 }

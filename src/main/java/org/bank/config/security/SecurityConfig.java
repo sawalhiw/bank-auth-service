@@ -36,7 +36,11 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(new JwtAuthorizationFilter(service), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthorizationFilter(service), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(exceptionHandling ->
+                exceptionHandling
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+        );
         return http.build();
     }
 
@@ -52,6 +56,9 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers("/api/login");
+        return web -> web
+                .ignoring()
+                .requestMatchers("/api/login")
+                .requestMatchers("/api/credentials");
     }
 }

@@ -1,10 +1,16 @@
 package org.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.bank.constants.Constants;
+
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +22,7 @@ public class CustomerCredentialDto extends BaseDto {
     @Size(min = 6, max = 20, message = "Password should be greater than 5 and lower than 20.")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).*$",
             message = "Password must contain at least one special character and one number.")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @NotBlank
@@ -23,9 +30,18 @@ public class CustomerCredentialDto extends BaseDto {
     private String username;
 
     @NotBlank
-    @Pattern(regexp = "\\d{7}", message = "Customer ID must be exactly 7 digits.")
     private String customerId;
 
-    @NotBlank
+    @NotNull
     private Role role;
+
+    @JsonIgnore
+    public String passwordHash;
+
+    public String getPasswordHash() {
+        if (Objects.isNull(passwordHash)) {
+            this.passwordHash = Constants.encoder.encode(password);
+        }
+        return passwordHash;
+    }
 }
