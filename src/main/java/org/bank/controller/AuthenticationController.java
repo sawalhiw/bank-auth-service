@@ -1,5 +1,6 @@
 package org.bank.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.bank.controller.base.BaseController;
 import org.bank.dto.JwtRequestDto;
@@ -18,7 +19,7 @@ public class AuthenticationController extends BaseController {
     private final AuthenticationService service;
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody final JwtRequestDto jwtRequestDto) {
+    public ResponseEntity<?> login(@Valid @RequestBody final JwtRequestDto jwtRequestDto) {
         return call(() -> service.login(jwtRequestDto));
     }
 

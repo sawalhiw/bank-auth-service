@@ -26,7 +26,7 @@ public class CustomerCredentialController extends BaseController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> updateById(@PathVariable final String id,
-                                        @RequestBody final CustomerCredentialDto dto) {
+                                        @Valid @RequestBody final CustomerCredentialDto dto) {
         return call(() -> service.updateById(dto, id));
     }
 
