@@ -97,4 +97,6 @@ To access any resources in the system, you need to authenticate and obtain a tok
   -H "Content-Type: application/json" \
   -d '{"username": "admin", "password": "admin"}'
   ```
-  **Note 'admin' is a default user in the system.**
+###Important Notes
+ 1. **'admin' is a default user in the system.**
+ 2. **You should change 'admin@gmail.com' to your email to receive emails, you can find that email inside 'default-user.csv' file**
