@@ -9,8 +9,8 @@ import lombok.*;
 @Getter
 @Builder
 public class JwtRequestDto {
-    @NotBlank
+    @NotBlank(message = "password shouldn't be null or empty.")
     private String password;
-    @NotBlank
+    @NotBlank(message = "username shouldn't be null or empty.")
     private String username;
 }

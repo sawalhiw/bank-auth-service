@@ -20,20 +20,20 @@ import java.util.Objects;
 @Getter
 @SuperBuilder
 public class CustomerCredentialDto extends BaseDto {
-    @NotBlank
+    @NotBlank(message = "Password shouldn't be null or empty.")
     @Size(min = 6, max = 20, message = "Password should be greater than 5 and lower than 20.")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).*$",
             message = "Password must contain at least one special character and one number.")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "Username shouldn't be null or empty")
     @Size(min = 6, max = 20)
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "CustomerId shouldn't be null or empty.")
     private String customerId;
 
-    @NotNull
+    @NotNull(message = "Role shouldn't be null.")
     private Role role;
 
     @JsonIgnore
