@@ -1,6 +1,8 @@
 package org.bank.service.implmentation;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.bank.constants.Constants;
 import org.bank.dto.CustomerCredentialDto;
 import org.bank.dto.CustomerDto;
@@ -19,6 +21,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class JwtServiceImpl implements AuthenticationService {
+    private static final Logger logger = LogManager.getLogger(JwtServiceImpl.class);
     private final CustomerCredentialService service;
     private final BankCustomerClient client;
 
@@ -30,15 +33,17 @@ public class JwtServiceImpl implements AuthenticationService {
         CustomerCredentialDto storedCredential = service.findCustomerCredentialByUsername(jwtRequestDto.getUsername());
 
         validateCredential(jwtRequestDto.getPassword(), storedCredential.getPasswordHash());
-        storedCredential.setUsername(jwtRequestDto.getUsername());
+
         final CustomerDto customerDetails = client.getCustomer(storedCredential.getCustomerId());
         customerDetails.setUsername(jwtRequestDto.getUsername());
         customerDetails.setRole(storedCredential.getRole());
+
         return JwtUtils.generateToken(customerDetails);
     }
 
     public void validateCredential(final String receivedPassword,
                                    final String storedPasswordHash) {
+        logger.info("Validating User Credentials.");
         if (!Constants.encoder.matches(receivedPassword, storedPasswordHash)) {
             throw new BadCredentialsException("Authentication failed: The username or password you entered is incorrect. Please double-check your credentials and try again.");
         }
