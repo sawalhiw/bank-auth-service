@@ -21,7 +21,6 @@ import java.util.Objects;
 public class CustomerCredentialServiceImpl extends BaseServiceImpl<CustomerCredential, CustomerCredentialDto>
         implements CustomerCredentialService {
     private static final Logger logger = LogManager.getLogger(BaseServiceImpl.class);
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     private final CustomerCredentialRepository repository;
     private final BankCustomerClient customerClient;
 
